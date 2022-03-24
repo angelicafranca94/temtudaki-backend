@@ -21,6 +21,8 @@ export class UsuarioService {
     usuario.email = data.email
     usuario.name = data.nome
     usuario.password = data.senha
+    usuario.telefone = data.telefone
+    usuario.cpf = data.cpf
 
     return this.usuarioRepository.save(usuario).then((result) =>{
 
