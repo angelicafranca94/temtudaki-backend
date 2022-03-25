@@ -10,6 +10,7 @@ import { UsuarioService } from './usuario.service';
   providers: [
     ...usuarioProviders,
     UsuarioService,
-  ]
+  ],
+  exports: [UsuarioService]
 })
 export class UsuarioModule {}
