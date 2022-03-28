@@ -1,5 +1,6 @@
 import { Injectable, Inject, HttpException, HttpStatus, forwardRef } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
+import { Usuario } from 'src/usuario/usuario.entity';
 import { UsuarioService } from 'src/usuario/usuario.service';
 import { Repository } from 'typeorm';
 import { Token } from './token.entity';
@@ -38,6 +39,16 @@ export class TokenService {
       return new HttpException({
         errorMessage: 'Token inválido'
       }, HttpStatus.UNAUTHORIZED)
+    }
+  }
+
+  async getUsuarioByToken(token: string): Promise<Usuario>{
+    let objToken: Token = await this.tokenRepository.findOne({hash: token})
+    if(objToken){
+      let usuario = await this.usuarioService.findOne(objToken.username)
+      return usuario
+    }else{
+      return null
     }
   }
 
